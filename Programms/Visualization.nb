@@ -1,0 +1,441 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 14.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     16904,        433]
+NotebookOptionsPosition[     15783,        407]
+NotebookOutlinePosition[     16218,        424]
+CellTagsIndexPosition[     16175,        421]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"Clear", "[", "\"\<Global`*\>\"", "]"}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SetDirectory", "[", 
+   RowBox[{
+    RowBox[{"NotebookDirectory", "[", "]"}], "<>", 
+    "\"\<\\\\Code\\\\OutputData\>\""}], "]"}], ";"}]}], "Input",
+ CellLabel->
+  "In[1785]:=",ExpressionUUID->"93f86bdc-6d9e-4246-957a-8ab4cd200ba6"],
+
+Cell[CellGroupData[{
+
+Cell["\:0412\:0438\:0437\:0443\:0430\:043b\:0438\:0437\:0430\:0446\:0438\:044f\
+ \:0440\:0435\:0448\:0435\:043d\:0438\:044f", "Section",
+ CellChangeTimes->{{3.925957775943981*^9, 
+  3.9259577956040573`*^9}},ExpressionUUID->"b56f92f7-ab7a-7c42-9857-\
+342b2cf6e9df"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{
+   RowBox[{"LTSPlot3D", "[", "data_", "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "tabdata", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"tabdata", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"data", "[", 
+            RowBox[{"[", "j", "]"}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", " ", 
+             RowBox[{"i", "+", "1"}], ",", " ", 
+             RowBox[{"i", "+", 
+              RowBox[{"Length", "@", 
+               RowBox[{"data", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", " ", "1", ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "@", "data"}], "-", 
+            RowBox[{"Length", "@", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}]}], ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "@", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "+", "1"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Manipulate", "[", 
+       RowBox[{
+        RowBox[{"ListPlot3D", "[", 
+         RowBox[{
+          RowBox[{"tabdata", "[", 
+           RowBox[{"[", "time", "]"}], "]"}], ",", " ", 
+          RowBox[{"Mesh", "->", "All"}], ",", " ", 
+          RowBox[{"PlotStyle", "->", "\"\<Rainbow\>\""}]}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"time", ",", " ", "1", ",", " ", 
+          RowBox[{"Length", "@", "tabdata"}], ",", " ", "1"}], "}"}]}], 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"LTSPlot3D2", "[", "data_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "tabdata", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"tabdata", " ", "=", " ", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"data", "[", 
+           RowBox[{"[", "j", "]"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", " ", 
+            RowBox[{"i", "+", "1"}], ",", " ", 
+            RowBox[{"i", "+", 
+             RowBox[{"Length", "@", 
+              RowBox[{"data", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", " ", "1", ",", " ", 
+          RowBox[{
+           RowBox[{"Length", "@", "data"}], "-", 
+           RowBox[{"Length", "@", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}]}], ",", " ", 
+          RowBox[{
+           RowBox[{"Length", "@", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}], "+", "1"}]}], "}"}]}], "]"}]}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"Manipulate", "[", 
+      RowBox[{
+       RowBox[{"ListPlot3D", "[", 
+        RowBox[{
+         RowBox[{"tabdata", "[", 
+          RowBox[{"[", "time", "]"}], "]"}], ",", " ", 
+         RowBox[{"Mesh", "->", "All"}], ",", " ", 
+         RowBox[{"Filling", "->", "Bottom"}], ",", " ", 
+         RowBox[{"FillingStyle", "->", 
+          RowBox[{"Directive", "[", 
+           RowBox[{
+            RowBox[{"Opacity", "[", "0.6", "]"}], ",", " ", "Blue"}], "]"}]}],
+          ",", " ", 
+         RowBox[{"PlotStyle", "->", "Red"}]}], "]"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"time", ",", " ", "1", ",", " ", 
+         RowBox[{"Length", "@", "tabdata"}], ",", " ", "1"}], "}"}]}], 
+      "]"}]}]}], "\[IndentingNewLine]", "]"}]}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{
+   RowBox[{"LTSPlot3D3", "[", "data_", "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "tabdata", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"tabdata", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"data", "[", 
+            RowBox[{"[", "j", "]"}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", " ", 
+             RowBox[{"i", "+", "1"}], ",", " ", 
+             RowBox[{"i", "+", 
+              RowBox[{"Length", "@", 
+               RowBox[{"data", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", " ", "1", ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "@", "data"}], "-", 
+            RowBox[{"Length", "@", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}]}], ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "@", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "+", "1"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Manipulate", "[", 
+       RowBox[{
+        RowBox[{"ListPlot3D", "[", 
+         RowBox[{
+          RowBox[{"tabdata", "[", 
+           RowBox[{"[", "time", "]"}], "]"}], ",", " ", 
+          RowBox[{"Mesh", "->", "All"}], ",", 
+          RowBox[{"ColorFunction", " ", "->", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"ColorData", "[", "\"\<DarkRainbow\>\"", "]"}], "[", 
+              "#1", "]"}], "&"}], "}"}]}]}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"time", ",", " ", "1", ",", " ", 
+          RowBox[{"Length", "@", "tabdata"}], ",", " ", "1"}], "}"}]}], 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}], 
+  "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"LastLTSPlot3D", "[", "data_", "]"}], " ", ":=", " ", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", "tabdata", "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"tabdata", " ", "=", " ", 
+      RowBox[{"Table", "[", 
+       RowBox[{
+        RowBox[{"Table", "[", 
+         RowBox[{
+          RowBox[{"data", "[", 
+           RowBox[{"[", "j", "]"}], "]"}], ",", " ", 
+          RowBox[{"{", 
+           RowBox[{"j", ",", " ", 
+            RowBox[{"i", "+", "1"}], ",", " ", 
+            RowBox[{"i", "+", 
+             RowBox[{"Length", "@", 
+              RowBox[{"data", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"i", ",", " ", "1", ",", " ", 
+          RowBox[{
+           RowBox[{"Length", "@", "data"}], "-", 
+           RowBox[{"Length", "@", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}]}], ",", " ", 
+          RowBox[{"1", " ", "+", " ", 
+           RowBox[{"Length", "@", 
+            RowBox[{"data", "[", 
+             RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}]}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"ListPlot3D", "[", 
+      RowBox[{
+       RowBox[{"tabdata", "[", 
+        RowBox[{"[", 
+         RowBox[{"-", "1"}], "]"}], "]"}], ",", " ", 
+       RowBox[{"Mesh", "->", "All"}]}], "]"}]}]}], "\[IndentingNewLine]", 
+   "]"}]}]}], "Input",
+ CellChangeTimes->{{3.925959352098821*^9, 3.9259594231536665`*^9}, {
+  3.925959465298364*^9, 3.925959544784998*^9}, {3.9259595928377666`*^9, 
+  3.925959605689163*^9}, {3.92595965138986*^9, 3.9259598045923996`*^9}, {
+  3.925960135128137*^9, 3.925960157496342*^9}, {3.9259602197060184`*^9, 
+  3.92596030637166*^9}, {3.925960427284443*^9, 3.9259604742508082`*^9}, {
+  3.925960737405976*^9, 3.9259607518807173`*^9}, {3.925961972843706*^9, 
+  3.9259619820427*^9}, {3.926512528526417*^9, 3.926512528746994*^9}},
+ CellLabel->
+  "In[1803]:=",ExpressionUUID->"d35315d0-f8b3-7c48-8c1f-7c0897b7d5a6"],
+
+Cell[BoxData[
+ RowBox[{"\[IndentingNewLine]", 
+  RowBox[{
+   RowBox[{"LTSPlot3D4", "[", 
+    RowBox[{"data_", ",", " ", "img_"}], "]"}], " ", ":=", " ", 
+   RowBox[{"Module", "[", 
+    RowBox[{
+     RowBox[{"{", "tabdata", "}"}], ",", "\[IndentingNewLine]", 
+     RowBox[{
+      RowBox[{"tabdata", " ", "=", " ", 
+       RowBox[{"Table", "[", 
+        RowBox[{
+         RowBox[{"Table", "[", 
+          RowBox[{
+           RowBox[{"data", "[", 
+            RowBox[{"[", "j", "]"}], "]"}], ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"j", ",", " ", 
+             RowBox[{"i", "+", "1"}], ",", " ", 
+             RowBox[{"i", "+", 
+              RowBox[{"Length", "@", 
+               RowBox[{"data", "[", 
+                RowBox[{"[", "2", "]"}], "]"}]}]}]}], "}"}]}], "]"}], ",", 
+         " ", 
+         RowBox[{"{", 
+          RowBox[{"i", ",", " ", "1", ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "@", "data"}], "-", 
+            RowBox[{"Length", "@", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}]}], ",", " ", 
+           RowBox[{
+            RowBox[{"Length", "@", 
+             RowBox[{"data", "[", 
+              RowBox[{"[", "2", "]"}], "]"}]}], "+", "1"}]}], "}"}]}], 
+        "]"}]}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Manipulate", "[", 
+       RowBox[{
+        RowBox[{"ListPlot3D", "[", 
+         RowBox[{
+          RowBox[{"tabdata", "[", 
+           RowBox[{"[", "time", "]"}], "]"}], ",", " ", 
+          RowBox[{"Mesh", "->", "False"}], ",", " ", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"TextureCoordinateFunction", "->", 
+             RowBox[{"{", 
+              RowBox[{
+               RowBox[{"{", 
+                RowBox[{"#1", ",", " ", "#2"}], "}"}], "&"}], "}"}]}], ","}], 
+           "*)"}], "\[IndentingNewLine]", 
+          RowBox[{"(*", 
+           RowBox[{
+            RowBox[{"TextureCoordinateScaling", "->", "False"}], ","}], 
+           "*)"}], "\[IndentingNewLine]", 
+          RowBox[{"PlotStyle", " ", "->", " ", 
+           RowBox[{"Directive", "[", 
+            RowBox[{"Texture", "[", "img", "]"}], "]"}]}]}], 
+         "\[IndentingNewLine]", "\[IndentingNewLine]", "]"}], ",", " ", 
+        RowBox[{"{", 
+         RowBox[{"time", ",", " ", "1", ",", " ", 
+          RowBox[{"Length", "@", "tabdata"}], ",", " ", "1"}], "}"}]}], 
+       "]"}]}]}], "\[IndentingNewLine]", "]"}]}]}]], "Input",
+ CellChangeTimes->{{3.925960767613623*^9, 3.925960783543089*^9}, {
+   3.9259608347609463`*^9, 3.9259608984432907`*^9}, 3.9259609555624695`*^9, {
+   3.925961006479009*^9, 3.925961023245922*^9}, {3.925962563657315*^9, 
+   3.925962581045908*^9}, 3.925962620609365*^9, 3.925962668184492*^9},
+ CellLabel->
+  "In[1807]:=",ExpressionUUID->"496d8d89-c2bb-d644-b903-5d5f5c592463"],
+
+Cell[BoxData[
+ RowBox[{"(*", 
+  RowBox[{
+   RowBox[{"img1", " ", "=", " ", 
+    RowBox[{
+    "Import", " ", "[", 
+     "\"\<C:\\\\Users\\\\gerce\\\\Downloads\\\\44PGyXBpagg.jpg\>\"", "]"}]}], 
+   ";", "\[IndentingNewLine]", 
+   RowBox[{"img2", " ", "=", " ", 
+    RowBox[{
+    "Import", " ", "[", 
+     "\"\<C:\\\\Users\\\\gerce\\\\Downloads\\\\1670482935_3-kartinkin-net-p-\
+ayanami-rei-kartinki-vkontakte-3.jpg\>\"", "]"}]}], ";", 
+   "\[IndentingNewLine]", 
+   RowBox[{"img3", " ", "=", " ", 
+    RowBox[{
+    "Import", " ", "[", 
+     "\"\<C:\\\\Users\\\\gerce\\\\Downloads\\\\matematika-algebra-devochka.\
+jpg\>\"", "]"}]}], ";", "\[IndentingNewLine]", 
+   RowBox[{"LTSPlot3D4", "[", 
+    RowBox[{"data", ",", " ", "img1"}], "]"}]}], "*)"}]], "Input",
+ CellChangeTimes->{{3.9259607852903028`*^9, 3.925960823439396*^9}, {
+   3.925960910978475*^9, 3.92596091667943*^9}, {3.925961741938563*^9, 
+   3.9259617559180946`*^9}, {3.92596181060231*^9, 3.9259618228151245`*^9}, {
+   3.9259624919722347`*^9, 3.9259625292220287`*^9}, {3.9259625730505447`*^9, 
+   3.925962573207094*^9}, {3.925962624857757*^9, 3.9259626261885567`*^9}, 
+   3.926512546982128*^9},
+ CellLabel->
+  "In[1812]:=",ExpressionUUID->"0142560d-abd6-e349-8928-dba7799d3914"],
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"data1", " ", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Test1.txt\>\"", ",", " ", "\"\<Table\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data2", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Test2.txt\>\"", ",", " ", "\"\<Table\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"data3", "=", " ", 
+   RowBox[{"Import", "[", 
+    RowBox[{"\"\<Test3.txt\>\"", ",", " ", "\"\<Table\>\""}], "]"}]}], 
+  ";"}], "\[IndentingNewLine]"}], "Input",
+ CellChangeTimes->{{3.926512551711439*^9, 3.9265125769433804`*^9}},
+ CellLabel->
+  "In[1823]:=",ExpressionUUID->"402583c5-39d0-664a-a054-7fde0b7b2188"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"LTSPlot3D", "[", "data3", "]"}]], "Input",
+ CellChangeTimes->{{3.926512622207239*^9, 3.9265126559454575`*^9}},
+ CellLabel->
+  "In[1826]:=",ExpressionUUID->"c043d384-44bb-5949-8312-dad132dbe93d"],
+
+Cell[BoxData[
+ TagBox[
+  StyleBox[
+   DynamicModuleBox[{$CellContext`time$$ = 1, Typeset`show$$ = True, 
+    Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+    Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+    "\"untitled\"", Typeset`specs$$ = {{
+      Hold[$CellContext`time$$], 1, 79388, 1, ControlType -> Manipulator}}, 
+    Typeset`size$$ = {360., {170., 175.67314571145124`}}, Typeset`update$$ = 
+    0, Typeset`initDone$$, Typeset`skipInitDone$$ = True}, 
+    DynamicBox[Manipulate`ManipulateBoxes[
+     1, StandardForm, "Variables" :> {$CellContext`time$$ = 1}, 
+      "ControllerVariables" :> {}, 
+      "OtherVariables" :> {
+       Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+        Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+        Typeset`specs$$, Typeset`size$$, Typeset`update$$, Typeset`initDone$$,
+         Typeset`skipInitDone$$}, "Body" :> ListPlot3D[
+        Part[$CellContext`tabdata$95427, $CellContext`time$$], Mesh -> All, 
+        PlotStyle -> "Rainbow"], 
+      "Specifications" :> {{$CellContext`time$$, 1, 79388, 1}}, 
+      "Options" :> {}, "DefaultOptions" :> {}],
+     ImageSizeCache->{408., {214.13403309800196`, 219.86596690199804`}},
+     SingleEvaluation->True],
+    Deinitialization:>None,
+    DynamicModuleValues:>{},
+    SynchronousInitialization->True,
+    UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+    UnsavedVariables:>{Typeset`initDone$$},
+    UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+   Deployed->True,
+   StripOnInput->False],
+  Manipulate`InterpretManipulate[1]]], "Output",
+ CellChangeTimes->{{3.926512637939142*^9, 3.9265126713561707`*^9}, 
+   3.9265128183724346`*^9},
+ CellLabel->
+  "Out[1826]=",ExpressionUUID->"ef8ae598-f44a-aa4b-b6f1-58ab8b017546"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1440, 777.75},
+WindowMargins->{{-6, Automatic}, {Automatic, -6}},
+Magnification:>1. Inherited,
+FrontEndVersion->"14.0 for Microsoft Windows (64-bit) (December 12, 2023)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"e4f395b0-2710-f648-8ae5-c6333c110a03"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 364, 10, 78, "Input",ExpressionUUID->"93f86bdc-6d9e-4246-957a-8ab4cd200ba6"],
+Cell[CellGroupData[{
+Cell[947, 34, 264, 4, 67, "Section",ExpressionUUID->"b56f92f7-ab7a-7c42-9857-342b2cf6e9df"],
+Cell[1214, 40, 7750, 197, 548, "Input",ExpressionUUID->"d35315d0-f8b3-7c48-8c1f-7c0897b7d5a6"],
+Cell[8967, 239, 2805, 68, 262, "Input",ExpressionUUID->"496d8d89-c2bb-d644-b903-5d5f5c592463"],
+Cell[11775, 309, 1236, 28, 86, "Input",ExpressionUUID->"0142560d-abd6-e349-8928-dba7799d3914"],
+Cell[13014, 339, 697, 18, 135, "Input",ExpressionUUID->"402583c5-39d0-664a-a054-7fde0b7b2188"],
+Cell[CellGroupData[{
+Cell[13736, 361, 218, 4, 28, "Input",ExpressionUUID->"c043d384-44bb-5949-8312-dad132dbe93d"],
+Cell[13957, 367, 1798, 36, 467, "Output",ExpressionUUID->"ef8ae598-f44a-aa4b-b6f1-58ab8b017546"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
