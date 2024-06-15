@@ -15,6 +15,6 @@ void QuadtratureTest1(){
 
 int main() {
     std::cout<<"hello" << std::endl;
-    QuadtratureTest();
+    QuadtratureTest1();
     return 0;
 }
