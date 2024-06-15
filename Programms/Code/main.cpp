@@ -1,5 +1,6 @@
 #include <iostream>
 #include"IntegralProblemSolver.h"
+#include <typeinfo>
 
 void QuadtratureTest1(){
     IntegralProblem problem(0., 1., 0.0526316);
@@ -68,11 +69,27 @@ void DegenerateTest1() {
 }
 
 
+void SingularTest1() {
+    // параметры уравнения
+    IntegralProblem problem(0, 480, 10);
+    double N = 16.;
+    problem.f = ([=](double phi) { return cos(N * 0.5 * phi);});
+    //problem.f = ([=](double phi) { return sin((N + 1) * 0.5 * phi);});
+    problem.f_isSet = true;
+    problem.EPS = 1e-9;
+    problem.EPS_is_set = true;
+    problem.num_x_steps = 48;
+    SingularScheme(problem, "SingularTest1");
+}
+
+
 int main() {
     //std::setlocale(LC_ALL, "rus");
     std::cout<<"hello" << std::endl;
-    QuadtratureTest1();
-    IterativeTest1();
+    //std::cout << typeid( 1.0/5).name() << std::endl;
+    //QuadtratureTest1();
+    //IterativeTest1();
     //DegenerateTest1();
+    SingularTest1();
     return 0;
 }

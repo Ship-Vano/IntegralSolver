@@ -21,4 +21,6 @@ bool QuadratureScheme(const IntegralProblem &problem, const string &filename="Un
 bool IterativeScheme(const IntegralProblem &problem, const string &filename="UntitledTest");
 
 bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename="UntitledTest");
+
+bool SingularScheme(const IntegralProblem &problem, const string &filename="UntitledTest");
 #endif //CODE_INTEGRALPROBLEMSOLVER_H

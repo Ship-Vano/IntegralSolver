@@ -289,3 +289,77 @@ bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename
     }
     return true;
 }
+
+// Метод для ингулярных уравнений
+bool SingularScheme(const IntegralProblem &problem, const string &filename) {
+
+    // Создание файла
+    std::string path = "./OutputData/" + filename;
+    std::ofstream fpoints(path);
+    std::cout << "log[INFO]: Starting IterativeScheme" << std::endl;
+    std::cout << "log[INFO]: Opening a file \"" << filename << "\" to write..." << std::endl;
+    if (fpoints.is_open()) {
+
+        double left_edge = problem.x0;
+        double right_edge = problem.X;
+        double hx = problem.hx;
+        int num_steps = problem.num_x_steps;
+
+        std::function<double(double)> f;
+        if(problem.f_isSet) {
+            f = problem.f;
+        }
+        else{
+            std::cout << "Right function f is not set!" << std::endl;
+            return false;
+        }
+
+        double EPS = 1e-4;
+        if(problem.EPS_is_set){
+            EPS = problem.EPS;
+        }
+
+        double x_i = left_edge;
+        std::vector<double> net(num_steps+1, 0.);
+
+        // настройка метода
+        int N = num_steps + 1;
+        std::vector<std::vector<double>> A(N+1, std::vector<double>(N+1, 0.));
+        std::vector<double> b(N+1, 0.);
+        std::vector<double> sol(N, 0.);
+        double angle = 0.;
+        // основной блок
+        for(int i = 0; i < N; ++i){
+            for(int j = 0; j < N; ++j){
+                angle = (M_PI + 2. * M_PI * i - 2. * M_PI * j) / (N*1.0);
+                A[i][j] = std::sin(angle) / (2. * N * (-1. + std::cos(angle)));
+            }
+            A[i][N] = 1.;
+            b[i] = f(2.*M_PI * (i+0.5) / (N*1.0));
+        }
+        for(int j = 0; j < N; ++j){
+            A[N][j] = 1.;
+        }
+
+        System<double> GaussSys(A, b);
+        GaussSys.GaussianPartChoiceSolve(EPS);
+
+        double R = GaussSys.SolutionX.back();
+        for(int i = 0; i < N; ++i)
+        {
+            sol[i] = GaussSys.SolutionX[i];
+            net[i] = 2 * M_PI * (double)i / (double)N;
+        }
+        std::cout << "R = " << R << std::endl;
+
+        writeVectorToFile(fpoints, net);
+        writeVectorToFile(fpoints, sol);
+
+        fpoints.close();
+    }
+    else {
+        std::cout << "log[ERROR]: Couldn't open or create a file" << std::endl;
+        return false;
+    }
+    return true;
+}
