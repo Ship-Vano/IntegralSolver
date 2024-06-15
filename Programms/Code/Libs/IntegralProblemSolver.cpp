@@ -80,6 +80,8 @@ bool QuadratureScheme(const IntegralProblem &problem, const string &filename) {
     return true;
 }
 
+
+
 bool IterativeScheme(const IntegralProblem &problem, const string &filename) {
 
     // Создание файла
@@ -146,7 +148,7 @@ bool IterativeScheme(const IntegralProblem &problem, const string &filename) {
                 x_i += hx;
                 temp_int_sum = 0.;
                 fL = 0.,
-                fR = Core(x_i, left_edge) * sol_k[0];
+                        fR = Core(x_i, left_edge) * sol_k[0];
                 for (int j = 1; j <= num_steps; ++j) {
                     std::swap(fL, fR);
                     s = left_edge + hx * j;
