@@ -29,6 +29,8 @@ public:
     double x0;  // начало отсчёта по x
     double X;   // координата правого конца по x
     double hx;  // шаг по x-координате
+    double EPS; // точность расчётов
+    bool EPS_is_set = false;
     int num_x_steps; // количество шагов по пространству x
 
     IntegralProblem(const double &x0_init, const double &X_init, const double &hx_init);

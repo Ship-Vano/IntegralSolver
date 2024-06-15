@@ -16,6 +16,6 @@
 #include "IntegralProblem.h"
 #include "SLAEsolver.h"
 
-bool QuadratureSсheme(const IntegralProblem &problem, const string &filename="UntitledTest");\
+bool QuadratureScheme(const IntegralProblem &problem, const string &filename="UntitledTest");\
 
 #endif //CODE_INTEGRALPROBLEMSOLVER_H
