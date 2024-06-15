@@ -35,6 +35,16 @@ public:
 
     IntegralProblem(const double &x0_init, const double &X_init, const double &hx_init);
 
+    // Функции в разложении вырожденного ядра
+
+    // Функции \phi_i
+    std::vector<std::function<double(double)>> phi;
+    bool phi_is_set = false;
+
+    // Функции \psi_i
+    std::vector<std::function<double(double)>> psi;
+    bool psi_is_set = false;
+
 };
 
 #endif //CODE_INTEGRALPROBLEM_H
