@@ -2,6 +2,7 @@
 #include"IntegralProblemSolver.h"
 #include <typeinfo>
 
+
 /* ЧАСТЬ 1 ТЕСТОВ ИЗ МЕТОДИЧКИ: КВАДРАТУРЫ И ИТЕРАЦИИ*/
 
 // Тест1
@@ -88,6 +89,41 @@ void SingularTest2() {
 
 /* КАСТОМНЫЕ ТЕСТЫ*/
 
+// Проверка точности квадратурной формулы (вопрос 8 отчёта)
+void QuadCheck(){
+    double q = 0.5;
+    double h = (std::exp(1.0) -1.)/30.;
+    for(int i = 1; i < 4; ++i) {
+        IntegralProblem problem(1., std::exp(1.0), h * std::pow(q,i-1));
+        problem.lambda = std::exp(1.0);
+        problem.K = ([](double x, double s) { return std::log(s) / x; });
+        problem.K_isSet = true;
+        problem.f = ([](double x) { return std::log(x); });
+        problem.f_isSet = true;
+        problem.EPS = 1e-17;
+        problem.EPS_is_set = true;
+        QuadratureScheme(problem, "QuadCheck" + to_string(i) + ".txt");
+    }
+}
+
+
+// Проверка точности квадратурной формулы (вопрос 8 отчёта)
+void StopCriterionCheck(){
+    double eps = 1e-2;
+    double its = 1;
+    for(int i = 1; i < 13; ++i) {
+        IntegralProblem problem(0., M_PI, M_PI/50.);
+        problem.lambda = 1./(2*M_PI);
+        problem.K = ([](double x, double s) { return s * std::sin(x); });
+        problem.K_isSet = true;
+        problem.f = ([](double x) { return std::cos(x); });
+        problem.f_isSet = true;
+        problem.EPS = 1e-17;
+        problem.EPS_is_set = true;
+        IterativeScheme(problem, "StopCriterionCheck" + to_string(i) + ".txt", its);
+        ++its;
+    }
+}
 // Вырожденные ядра
 void DegenerateTest1(){
     // параметры уравнения
@@ -207,12 +243,14 @@ int main() {
     //std::setlocale(LC_ALL, "rus");
     std::cout<<"hello" << std::endl;
     //std::cout << typeid( 1.0/5).name() << std::endl;
-    Test1();
-    Test2();
-    Test3();
-    Test4();
-    SingularTest1();
-    SingularTest2();
-    DegenerateTest1();
+//    Test1();
+//    Test2();
+//    Test3();
+//    Test4();
+//    SingularTest1();
+//    SingularTest2();
+//    DegenerateTest1();
+//    QuadCheck();
+    StopCriterionCheck();
     return 0;
 }

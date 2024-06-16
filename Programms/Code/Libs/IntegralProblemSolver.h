@@ -18,7 +18,7 @@
 
 bool QuadratureScheme(const IntegralProblem &problem, const string &filename="UntitledTest");
 
-bool IterativeScheme(const IntegralProblem &problem, const string &filename="UntitledTest");
+bool IterativeScheme(const IntegralProblem &problem, const string &filename="UntitledTest", const int& max_allowed_its=2000);
 
 bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename="UntitledTest");
 

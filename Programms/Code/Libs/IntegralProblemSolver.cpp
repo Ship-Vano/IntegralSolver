@@ -82,7 +82,7 @@ bool QuadratureScheme(const IntegralProblem &problem, const string &filename) {
 }
 
 // Метод простой итерации
-bool IterativeScheme(const IntegralProblem &problem, const string &filename) {
+bool IterativeScheme(const IntegralProblem &problem, const string &filename, const int& max_allowed_its) {
 
     // Создание файла
     std::string path = "./OutputData/" + filename;
@@ -134,7 +134,7 @@ bool IterativeScheme(const IntegralProblem &problem, const string &filename) {
         std::vector<double> sol_kp(sol_k);
 
         int its = 0;
-        int max_allowed_its = 2000.;
+       // int max_allowed_its = 2000.;
         double temp_int_sum = 0.;
         double fL = 0.;
         double fR = 0.;
