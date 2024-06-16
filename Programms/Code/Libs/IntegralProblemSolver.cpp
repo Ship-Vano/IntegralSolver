@@ -145,8 +145,8 @@ bool IterativeScheme(const IntegralProblem &problem, const string &filename) {
             for (int i = 0; i <= num_steps; ++i) {
                 x_i += hx;
                 temp_int_sum = 0.;
-                fL = 0.,
-                        fR = Core(x_i, left_edge) * sol_k[0];
+                fL = 0.;
+                fR = Core(x_i, left_edge) * sol_k[0];
                 for (int j = 1; j <= num_steps; ++j) {
                     std::swap(fL, fR);
                     s = left_edge + hx * j;
@@ -235,24 +235,24 @@ bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename
             for (int j = 0; j < amount_of_core_funcs; ++j) {
                 temp_int_sum = 0.;
                 fL = 0.;
-                fR = psi[i](left_edge) * phi[i](right_edge);
+                fR = psi[i](left_edge) * phi[i](left_edge);
                 for(int k = 1; k <= num_steps; ++k){
                     std::swap(fL, fR);
                     s = left_edge + hx * k;
                     fR = psi[i](s) * phi[j](s);
-                    //fL = psi[i](s - h) * phi[j](s - h);
+                    //fL = psi[i](s - hx) * phi[j](s - hx);
                     temp_int_sum += (fL + fR);
                 }
                 A[i][j] = - lambda * 0.5 * hx * temp_int_sum;
             }
             temp_int_sum = 0.;
             fL = 0.;
-            fR = psi[i](left_edge) * phi[i](right_edge);
+            fR = psi[i](left_edge) * phi[i](left_edge);
             for(int k = 1; k <= num_steps; ++k){
                 std::swap(fL, fR);
                 s = left_edge + hx * k;
                 fR = psi[i](s) * f(s);
-                //fL = psi[i](s - h) * f(s - h);
+                //fL = psi[i](s - hx) * f(s - hx);
                 temp_int_sum += (fL + fR);
             }
             b[i] = 0.5 * hx * temp_int_sum;
@@ -262,7 +262,7 @@ bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename
 //                out(A[i]);
 //        }
         System<double> GaussSys(A, b);
-//        for(int i = 0; i <= num_steps; ++i){
+//        for(int i = 0; i < amount_of_core_funcs; ++i){
 //            out(GaussSys.MatrixA[i]);
 //        }
 
