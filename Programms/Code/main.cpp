@@ -136,7 +136,6 @@ void QuadCheck(){
     }
 }
 
-
 // Проверка точности квадратурной формулы (вопрос 8 отчёта)
 void StopCriterionCheck(){
     double eps = 1e-2;
@@ -154,7 +153,8 @@ void StopCriterionCheck(){
         ++its;
     }
 }
-// Вырожденные ядра
+
+// Вырожденные ядра                                                             (мама, роди меня обратно...)
 void DegenerateTest1(){
     // параметры уравнения
     IntegralProblem problem(0., 1., 0.025);
@@ -184,11 +184,95 @@ void DegenerateTest1(){
 
     DegenerateCoreScheme(problem, "DegenerateTest1.txt");
 
+    // Посмотрим, как квадратуры и итерации решат уравнение (увидим, что долго очень...)
     problem.K = ([](double x, double s) { return 2. * (std::sin(2.*M_PI*(x-s))-2); });
     problem.K_isSet = true;
     QuadratureScheme(problem, "DegenerateTest1_quad.txt");
     IterativeScheme(problem, "DegenerateTest1_iter.txt");
 }
+
+void DegenerateTest2(){
+    // параметры уравнения
+    IntegralProblem problem(0., 1., 0.002);
+    problem.lambda = 4.;
+    problem.f = ([](double x) { return pow(x,3)-(std::exp(x*x)-1.); });
+    problem.f_isSet = true;
+    problem.EPS = 1e-17;
+    problem.EPS_is_set = true;
+
+    for(int n = 3; n < 15; ++n) {
+        // факторы ядра (множители)
+        int amount_of_core_funcs = n;
+        std::vector<std::function<double(double)>> phi;
+        phi.resize(amount_of_core_funcs);
+        std::vector<std::function<double(double)>> psi;
+        psi.resize(amount_of_core_funcs);
+
+        phi[0] = ([=](double x) { return x * x; });
+        psi[0] = ([=](double s) { return 1.; });
+
+        double factorial = 1.;
+        for (int i = 1; i < amount_of_core_funcs; ++i) {
+            factorial *= i;
+            //std::cout << factorial << std::endl;
+            phi[i] = ([=](double x) { return pow(x, 2 * (i + 1)) / factorial; });
+            psi[i] = ([=](double s) { return pow(s, 4 * i); });
+        }
+
+        problem.phi = phi;
+        problem.phi_is_set = true;
+        problem.psi = psi;
+        problem.psi_is_set = true;
+
+        DegenerateCoreScheme(problem, "DegenerateTest2_"+ to_string(n) + ".txt");
+    }
+}
+
+/* Файлы для табличек Эйткена для метода квадратур на основе теста 1*/
+void make_data_ffor_tables_1() {
+
+    double h0 = 0.1;
+    for (int i = 0; i < 6; i++) {
+        IntegralProblem problem(0., 1., h0);
+        problem.lambda = 0.5;
+        problem.K = ([](double x, double s) { return 1. - x * std::cos(x * s); });
+        problem.K_isSet = true;
+        problem.f = ([](double x) { return 0.5 * (1. + std::sin(x)); });
+        problem.f_isSet = true;
+        problem.EPS = 1e-7;
+        problem.EPS_is_set = true;
+        QuadratureScheme(problem, "/data_for_tables/QuadtratureTest_" + to_string(i) + ".txt");
+
+        h0 = h0 / 2.;
+    }
+}
+
+
+
+int main() {
+    //std::setlocale(LC_ALL, "rus");
+    std::cout<<"hello" << std::endl;
+    //std::cout << typeid( 1.0/5).name() << std::endl;
+    //Test1();
+    //Test2();
+    //Test3();
+    //Test4();
+    //SingularTest1();
+    //SingularTest2();
+    //SingularTest3();
+    //DegenerateTest1();
+    DegenerateTest2();
+    //QuadCheck();
+    //StopCriterionCheck();
+    //make_data_ffor_tables_1();
+
+    return 0;
+}
+
+
+
+// SANDBOX (замятыши)
+
 /*void DegenerateTest0(){
 
     // параметры уравнения
@@ -223,7 +307,7 @@ void DegenerateTest1(){
     IterativeScheme(problem, "DegenerateTest0_iter.txt");
 }*/
 
-void DegenerateTest2() {
+/*void DegenerateTest3() {
 
     // параметры уравнения
     IntegralProblem problem(0., 0.5*M_PI, 0.002);
@@ -251,7 +335,7 @@ void DegenerateTest2() {
         if(i%2 == 0){
             is_cos = true;
         }
-        //std::cout << (is_negtv ? "-" : "+") << "1 / " << factorial_placeholder << " " << (is_cos ? "cos" : "sin") << "(s) x^" << i << "\n";
+        std::cout << (is_negtv ? "-" : "+") << "1 / " << factorial_placeholder << " " << (is_cos ? "cos" : "sin") << "(s) x^" << i << "\n";
         psi[i] = [=](double s) { return (is_cos ? std::cos(s) : std::sin(s)); };
         phi[i] = [=](double x) { return (is_negtv ? -1 : 1) * std::pow(x, i) / factorial_placeholder; };
         factorial_placeholder *= (i + 1);
@@ -263,47 +347,4 @@ void DegenerateTest2() {
     problem.psi_is_set = true;
 
     DegenerateCoreScheme(problem, "DegenerateTest2.txt");
-}
-
-
-/* Файлы для табличек эиткена для метода квадратур на основе теста 1*/
-void make_data_ffor_tables_1() {
-
-    double h0 = 0.1;
-    for (int i = 0; i < 6; i++) {
-        IntegralProblem problem(0., 1., h0);
-        problem.lambda = 0.5;
-        problem.K = ([](double x, double s) { return 1. - x * std::cos(x * s); });
-        problem.K_isSet = true;
-        problem.f = ([](double x) { return 0.5 * (1. + std::sin(x)); });
-        problem.f_isSet = true;
-        problem.EPS = 1e-7;
-        problem.EPS_is_set = true;
-        QuadratureScheme(problem, "/data_for_tables/QuadtratureTest_" + to_string(i) + ".txt");
-
-        h0 = h0 / 2.;
-    }
-}
-
-
-
-int main() {
-    //std::setlocale(LC_ALL, "rus");
-    std::cout<<"hello" << std::endl;
-    //std::cout << typeid( 1.0/5).name() << std::endl;
-    //Test1();
-    //Test2();
-    //Test3();
-    //Test4();
-    //SingularTest1();
-    //SingularTest2();
-    //SingularTest3();
-    //DegenerateTest1();
-    //QuadCheck();
-    StopCriterionCheck();
-
-
-    make_data_ffor_tables_1();
-
-    return 0;
-}
+}*/
