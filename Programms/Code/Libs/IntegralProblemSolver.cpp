@@ -160,7 +160,7 @@ bool IterativeScheme(const IntegralProblem &problem, const string &filename, con
 
         writeVectorToFile(fpoints, net);
         writeVectorToFile(fpoints, sol_kp);
-
+        fpoints << its << std::endl;
         fpoints.close();
     }
     else {

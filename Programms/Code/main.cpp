@@ -300,7 +300,7 @@ int main() {
     //SingularTest3();
     //DegenerateTest1();
     //QuadCheck();
-    //StopCriterionCheck();
+    StopCriterionCheck();
 
 
     make_data_ffor_tables_1();
