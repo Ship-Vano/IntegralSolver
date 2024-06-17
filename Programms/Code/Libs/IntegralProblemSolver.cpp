@@ -354,7 +354,7 @@ bool SingularScheme(const IntegralProblem &problem, const string &filename) {
 
         writeVectorToFile(fpoints, net);
         writeVectorToFile(fpoints, sol);
-
+        fpoints << R << std::endl;
         fpoints.close();
     }
     else {

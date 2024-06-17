@@ -93,7 +93,7 @@ void SingularTest3() {
     // параметры уравнения (любые переменные в конструктор --- они ни на что не влияют)
     IntegralProblem problem(0, 480, 10);
     //double N = 16.;
-    problem.f = ([=](double phi) { return std::sin( 7 * phi);});
+    problem.f = ([=](double phi) { return std::sin( 5 * phi);});
     problem.f_isSet = true;
     problem.EPS = 1e-7;
     problem.EPS_is_set = true;
@@ -257,14 +257,14 @@ int main() {
     //Test2();
     //Test3();
     //Test4();
-    //SingularTest1();
-    //SingularTest2();
-    //SingularTest3();
+    SingularTest1();
+    SingularTest2();
+    SingularTest3();
     //DegenerateTest1();
     DegenerateTest2();
     //QuadCheck();
     //StopCriterionCheck();
-    //make_data_ffor_tables_1();
+    make_data_ffor_tables_1();
 
     return 0;
 }
