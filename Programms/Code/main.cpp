@@ -17,6 +17,8 @@ void Test1(){
     problem.EPS_is_set = true;
     QuadratureScheme(problem, "QuadtratureTest1.txt");
     IterativeScheme(problem, "IterativeTest1.txt");
+
+    /* Анал решение u(x) = 1 */
 }
 
 // Тест2
@@ -85,6 +87,34 @@ void SingularTest2() {
     problem.EPS_is_set = true;
     problem.num_x_steps = 48; //число контроьных точек
     SingularScheme(problem, "SingularTest2.txt");
+}
+
+void SingularTest3() {
+    // параметры уравнения (любые переменные в конструктор --- они ни на что не влияют)
+    IntegralProblem problem(0, 480, 10);
+    //double N = 16.;
+    problem.f = ([=](double phi) { return std::sin( 7 * phi);});
+    problem.f_isSet = true;
+    problem.EPS = 1e-7;
+    problem.EPS_is_set = true;
+    problem.num_x_steps = 5; //число контроьных точек
+    SingularScheme(problem, "SingularTest3_1.txt");
+
+    problem.num_x_steps = 10; //число контроьных точек
+    SingularScheme(problem, "SingularTest3_2.txt");
+
+    problem.num_x_steps = 15; //число контроьных точек
+    SingularScheme(problem, "SingularTest3_3.txt");
+
+    problem.num_x_steps = 20; //число контроьных точек
+    SingularScheme(problem, "SingularTest3_4.txt");
+
+    problem.num_x_steps = 25; //число контроьных точек
+    SingularScheme(problem, "SingularTest3_5.txt");
+
+    problem.num_x_steps = 30; //число контроьных точек
+    SingularScheme(problem, "SingularTest3_6.txt");
+
 }
 
 /* КАСТОМНЫЕ ТЕСТЫ*/
@@ -236,6 +266,24 @@ void DegenerateTest2() {
 }
 
 
+/* Файлы для табличек эиткена для метода квадратур на основе теста 1*/
+void make_data_ffor_tables_1() {
+
+    double h0 = 0.1;
+    for (int i = 0; i < 6; i++) {
+        IntegralProblem problem(0., 1., h0);
+        problem.lambda = 0.5;
+        problem.K = ([](double x, double s) { return 1. - x * std::cos(x * s); });
+        problem.K_isSet = true;
+        problem.f = ([](double x) { return 0.5 * (1. + std::sin(x)); });
+        problem.f_isSet = true;
+        problem.EPS = 1e-7;
+        problem.EPS_is_set = true;
+        QuadratureScheme(problem, "/data_for_tables/QuadtratureTest_" + to_string(i) + ".txt");
+
+        h0 = h0 / 2.;
+    }
+}
 
 
 
@@ -243,14 +291,19 @@ int main() {
     //std::setlocale(LC_ALL, "rus");
     std::cout<<"hello" << std::endl;
     //std::cout << typeid( 1.0/5).name() << std::endl;
-//    Test1();
-//    Test2();
-//    Test3();
-//    Test4();
-//    SingularTest1();
-//    SingularTest2();
-//    DegenerateTest1();
-//    QuadCheck();
-    StopCriterionCheck();
+    //Test1();
+    //Test2();
+    //Test3();
+    //Test4();
+    //SingularTest1();
+    //SingularTest2();
+    //SingularTest3();
+    //DegenerateTest1();
+    //QuadCheck();
+    //StopCriterionCheck();
+
+
+    make_data_ffor_tables_1();
+
     return 0;
 }
