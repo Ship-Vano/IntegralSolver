@@ -296,7 +296,7 @@ bool SingularScheme(const IntegralProblem &problem, const string &filename) {
     // Создание файла
     std::string path = "./OutputData/" + filename;
     std::ofstream fpoints(path);
-    std::cout << "log[INFO]: Starting IterativeScheme" << std::endl;
+    std::cout << "log[INFO]: Starting SingularScheme" << std::endl;
     std::cout << "log[INFO]: Opening a file \"" << filename << "\" to write..." << std::endl;
     if (fpoints.is_open()) {
 

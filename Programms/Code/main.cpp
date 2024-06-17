@@ -95,7 +95,7 @@ void SingularTest3() {
     //double N = 16.;
     problem.f = ([=](double phi) { return std::sin( 5 * phi);});
     problem.f_isSet = true;
-    problem.EPS = 1e-7;
+    problem.EPS = 1e-17;
     problem.EPS_is_set = true;
     problem.num_x_steps = 5; //число контроьных точек
     SingularScheme(problem, "SingularTest3_1.txt");
@@ -261,10 +261,10 @@ int main() {
     SingularTest2();
     SingularTest3();
     //DegenerateTest1();
-    DegenerateTest2();
+    //DegenerateTest2();
     //QuadCheck();
     //StopCriterionCheck();
-    make_data_ffor_tables_1();
+    //make_data_ffor_tables_1();
 
     return 0;
 }
