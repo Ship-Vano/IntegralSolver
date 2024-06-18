@@ -132,6 +132,7 @@ void QuadCheck(){
         problem.f_isSet = true;
         problem.EPS = 1e-17;
         problem.EPS_is_set = true;
+        problem.EPS_is_set = true;
         QuadratureScheme(problem, "QuadCheck" + to_string(i) + ".txt");
     }
 }
@@ -141,7 +142,7 @@ void StopCriterionCheck(){
     double eps = 1e-2;
     double its = 1;
     for(int i = 1; i < 13; ++i) {
-        IntegralProblem problem(0., M_PI, M_PI/50.);
+        IntegralProblem problem(0., M_PI, M_PI/100.);
         problem.lambda = 1./(2*M_PI);
         problem.K = ([](double x, double s) { return s * std::sin(x); });
         problem.K_isSet = true;
@@ -200,7 +201,7 @@ void DegenerateTest2(){
     problem.EPS = 1e-17;
     problem.EPS_is_set = true;
 
-    for(int n = 3; n < 15; ++n) {
+    for(int n = 3; n < 100; ++n) {
         // факторы ядра (множители)
         int amount_of_core_funcs = n;
         std::vector<std::function<double(double)>> phi;
@@ -257,13 +258,13 @@ int main() {
     //Test2();
     //Test3();
     //Test4();
-    SingularTest1();
-    SingularTest2();
-    SingularTest3();
+//    SingularTest1();
+//    SingularTest2();
+//    SingularTest3();
     //DegenerateTest1();
-    //DegenerateTest2();
+    DegenerateTest2();
     //QuadCheck();
-    //StopCriterionCheck();
+   // StopCriterionCheck();
     //make_data_ffor_tables_1();
 
     return 0;

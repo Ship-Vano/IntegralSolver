@@ -37,6 +37,8 @@ protected:
 	vector<LT> ApproxRightVect;
 	vector<LT> ErrorVect;
 	LT error_norm = 0;
+//public:
+//    friend vector<vector <LT>> InverseMatrix(vector<vector <LT>> matrix, LT EPS);
 protected:
 	void file_init(string file_loc); // функция инициализации через файл
 	int max_i(int index, LT EPS);
@@ -437,4 +439,98 @@ bool System<LT>::QRDecSolve(LT EPS)
 	}
 
 	return false;
+}
+
+// Функция для создания единичной матрицы размера n x n
+template <typename T>
+std::vector<std::vector<T>> create_identity_matrix(const int& n) {
+    std::vector<std::vector<T>> identity(n, std::vector<T>(n, 0));
+    for (int i = 0; i < n; i++) {
+        identity[i][i] = 1;
+    }
+    return identity;
+}
+
+/* Функция поворота матрицы влево */
+template <typename T>
+std::vector<std::vector<T>> RotateLeft(const std::vector<std::vector<T>>& A){
+
+    std::vector<std::vector<T>> A_rotate(A.size(), std::vector<T>(A.size(), 0));
+
+    for (int i = 0; i < A.size(); ++i) {
+        for (int j = 0; j < A.size(); ++j) {
+            A_rotate[j][A.size() - 1 - i] = A[i][j];
+        }
+    }
+
+    return A_rotate;
+}
+// Функция для обратной матрицы с проверкой на вырожденность
+template <typename T>
+std::vector<std::vector<T>> inverseMatrix(const std::vector<std::vector<T>>& A, const T& eps) {
+    std::vector<std::vector<T>> E = create_identity_matrix<T>(A.size());
+    std::vector<std::vector<T>> E_rotate = RotateLeft(E);
+    std::vector<T> e(A.size());
+    std::vector<std::vector<T>> X(A.size(), std::vector<T>(A.size(), 0));
+
+
+    for (int i = 0; i < A.size(); i++){
+        e = E_rotate[i];
+        System<double> GaussSys(A, e);
+        GaussSys.GaussianPartChoiceSolve(eps);
+        X[i] = GaussSys.SolutionX;
+
+    }
+    std::vector<std::vector<T>> A_inv = RotateLeft(X);
+    return A_inv;
+}
+
+
+template<typename LT>
+vector<vector <LT>> InverseMatrix(vector<vector <LT>> matrix, LT EPS)
+{
+    int n = matrix.size();
+
+    vector<LT> e1({ 1,0,0,0 });
+    vector<LT> e2({ 0,1,0,0 });
+    vector<LT> e3({ 0,0,1,0 });
+    vector<LT> e4({ 0,0,0,1 });
+
+    System<LT> A1(matrix, e1);
+    System<LT> A2(matrix, e2);
+    System<LT> A3(matrix, e3);
+    System<LT> A4(matrix, e4);
+
+    A1.GaussianPartChoiceSolve(EPS);
+    A2.GaussianPartChoiceSolve(EPS);
+    A3.GaussianPartChoiceSolve(EPS);
+    A4.GaussianPartChoiceSolve(EPS);
+
+    //cout << A1.SolutionX[1] << endl;
+    vector<vector<LT>> matrix_inv({ A1.SolutionX,A2.SolutionX, A3.SolutionX, A4.SolutionX });
+    LT temp_el;
+    for (int i = 0; i < n; ++i)
+        for (int j = i + 1; j < n; ++j)
+            if (i != j)
+            {
+                temp_el = matrix_inv[i][j];
+                matrix_inv[i][j] = matrix_inv[j][i];
+                matrix_inv[j][i] = temp_el;
+            }
+/*	cout << "-------------------- \n" << endl;
+	cout << "Матрица matrix^(-1):" << endl;
+	for (int i = 0; i < n; ++i)
+	{
+		for (int j = 0; j < n; ++j)
+			cout << fixed << setprecision(8) << setw(24) << setfill(' ') << matrix_inv[i][j] << " ";
+		cout << " " << endl;
+	}
+	cout << "-------------------- \n" << endl;*/
+    return matrix_inv;
+};
+
+template<typename LT>
+LT cond(vector<vector<LT>> matrix, LT EPS)
+{
+    return norm1(matrix) * norm1(inverseMatrix(matrix, EPS));
 }

@@ -5,6 +5,8 @@
 
 /*ЛР 5:*/
 
+
+
 // Метод квадратур
 bool QuadratureScheme(const IntegralProblem &problem, const string &filename) {
 
@@ -265,7 +267,8 @@ bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename
 //        for(int i = 0; i < amount_of_core_funcs; ++i){
 //            out(GaussSys.MatrixA[i]);
 //        }
-
+        auto conda = cond<double>(GaussSys.MatrixA, EPS);
+        std::cout << "Cond(A) = " << conda << std::endl;
         GaussSys.GaussianPartChoiceSolve(EPS);
         std::vector<double> G_sol = GaussSys.SolutionX;
         for(int i = 0; i < num_steps+1; ++i){
@@ -280,7 +283,7 @@ bool DegenerateCoreScheme(const IntegralProblem &problem, const string &filename
 
         writeVectorToFile(fpoints, net);
         writeVectorToFile(fpoints, solution);
-
+        fpoints << conda << std::endl;
         fpoints.close();
     }
     else {
